@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Detection Alert</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #alert-box { display: none; padding: 20px; background-color: red; color: white; font-size: 20px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Live Human Detection</h1>
+    <img src="/video_feed" width="640" height="480">
+    <div id="alert-box">⚠️ Human Detected! ⚠️</div>
+
+    <script>
+        function checkAlert() {
+            fetch('/alert_status')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('alert-box').style.display = data.alert ? 'block' : 'none';
+                });
+        }
+        setInterval(checkAlert, 1000);
+    </script>
+</body>
+</html>
